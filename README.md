@@ -12,3 +12,4 @@ It will be a turn based game in a grid canvas where you create minions to destro
 - create the player
 - create the class for the player 
 
+test
