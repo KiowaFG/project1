@@ -1,0 +1,120 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;  
+    font-family: "VT323", monospace; 
+    background-image: url("https://images.pexels.com/photos/2757549/pexels-photo-2757549.jpeg?cs=srgb&dl=pexels-elias-tigiser-411757-2757549.jpg&fm=jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#logo{
+    width: 300px;
+}
+
+body{
+    background-color: #093f0f;
+}
+.snake{
+    background-color: #059813;
+}
+
+#gameBoard{
+    border-radius: 100px;
+    display: grid;
+    grid-template-columns: repeat(20, 28px);
+    grid-template-rows: repeat(20,28px);
+    margin: 5px;
+}
+
+.gameBorder1{
+    border: #007d2c solid 8px;
+    border-radius: 26px;
+    box-shadow: inset 0 0 0 10px #007d2c;
+}
+.gameBorder2{
+    border: #86a754 solid 10px;
+    border-radius: 30px;
+    box-shadow: inset 0 0 0 10px #86a754;
+}
+.gameBorder3{
+    border: #b28448 solid 30px;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 5px #b28448;
+}
+
+#instructionText{
+    position: absolute;
+    top: 60%;
+    color: #024e2d;
+    width: 300px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 5%;
+    margin: 0;
+}
+
+img{
+    width: 200px;
+}
+
+.scores{
+    display: flex;
+    justify-content: space-between;
+}
+
+#hp{
+    color: #f9fcd3;
+}
+
+#score {
+    color: #f9fcd3;
+}
+
+#hp,
+#score,
+#highScore{
+    font-size: 40px;
+    font-weight: bolder;
+    margin: 10px 0;
+}
+#highScore{
+    color: #f9fcd3;
+    display: none;
+}
+
+.gameBorder3,
+#logo{
+    background-color: rgb(255, 221, 149);
+}
+
+.snake{
+    border: #074b32 2px dotted;
+}
+
+.food{
+    /* background-color:  #ff9f04;
+    border:#9b5800 5px solid; */
+    background-image: url(./meat_icon-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+#logo{
+    position: absolute;
+}
+
+.enemy{
+    /* background-color: red;
+    border: #007d2c 5px solid; */
+    background-image:url(./mongooseblue.png) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+
+

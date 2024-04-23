@@ -6,7 +6,7 @@ const highScoreText = document.getElementById(`highScore`);
 
 //define game variables
 const gridSize = 20;
-let snake = [{x: 10, y: 10}];
+let snake = [{x:10, y: 10}];
 let food = generateFood();
 let highScore = 0;
 let direction = `right`
@@ -14,13 +14,15 @@ let gameInterval
 let gameSpeedDelay = 200;
 let gameStarted = false;
 const score = document.getElementById(`score`);
-
+let enemy = spawnEnemy();
+let gameIntervalEnemy
 //draw game map, snake, food
 function draw(){
     board.innerHTML = ``;
     drawSnake();
     drawFood();
     updateScore();
+    drawEnemy()
 }
 
 //draw snake
@@ -70,7 +72,7 @@ function move(){
     const head = {...snake[0]}
     switch (direction) {
         case `up`:
-            head.y--            
+            head.y--         
             break;
 
         case `down`:
@@ -101,6 +103,20 @@ function move(){
             draw();     
         },gameSpeedDelay)
     }
+    // if (head.x === enemy.x && head.y === enemy.y){
+    //     clearInterval()
+    //     gameIntervalEnemy = setInterval(() =>{
+    //         move();
+    //         checkCollision()
+    //         snake.pop()
+    //     })
+    // }
+    else if (head.x === enemy.x && head.y === enemy.y) {
+        snake.pop(); // Lose one square of the snake when hitting an enemy
+        snake.length > 1 ? snake.pop() : resetGame(); // Ensure the snake doesn't disappear or game doesn't crash
+        enemy = spawnEnemy(); 
+    }
+    
     else {
         snake.pop()
     }
@@ -206,7 +222,7 @@ function resetGame() {
 
 function updateScore(){
     const currentScore = snake.length -1;
-    score.textContent = currentScore.toString().padStart(3,`0`)
+    score.textContent = currentScore.toString().padStart(8,`Score 0`)
 }
 
 function stopGame() {
@@ -220,7 +236,42 @@ function updateHighScore() {
     const currentScore = snake.length -1;
     if (currentScore > highScore) {
         highScore = currentScore
-        highScoreText.textContent= highScore.toString().padStart(3,'0');
+        highScoreText.textContent= highScore.toString().padStart(6,'H.S. 0');
     }
     highScoreText.style.display = `block`;
 }
+
+function drawEnemy(){
+    if(gameStarted){
+    const enemyElement = createGameElement(`div`,`enemy`)
+    setPosition(enemyElement, enemy);
+    board.appendChild(enemyElement);
+    }
+}
+
+//  class enemy{
+//      constructor(health){
+//      this.health = 2
+
+//      }
+//  }
+
+//  function spawnEnemy (){
+//      const x = Math.floor(Math.random() * gridSize) +1 ;
+//     const y = Math.floor(Math.random() * gridSize) +1 ;
+//      return {x, y};
+//  }
+
+ function spawnEnemy() {
+    let x, y;
+    do {
+        x = Math.floor(Math.random() * gridSize) + 1;
+        y = Math.floor(Math.random() * gridSize) + 1;
+    } while (snake.some(segment => segment.x === x && segment.y === y) || (x === food.x && y === food.y));
+    return {x, y};
+}
+
+
+
+
+
