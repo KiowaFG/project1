@@ -116,5 +116,37 @@ img{
     
 }
 
+.enemy2{
+    background-image:url(./mongoosered.png) ;
+    background-repeat: no-repeat;
+    background-size: cover;
 
+}
 
+.blackEnemy{
+    background-image: url(./mongooseblack.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgb(255, 221, 149);
+}
+
+.blueEnemy{
+    background-image: url(./mongooseblue.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:  rgb(255, 221, 149);
+}
+
+.greenEnemy{
+    background-image: url(./mongoosegreen.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #f9fcd3;
+}
+
+.redEnemy{
+    background-image: url(./mongoosered.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:  rgb(255, 221, 149);
+}
