@@ -17,10 +17,14 @@ const scoreElement = document.getElementById(`score`);
 let score = 0
 const hp = document.getElementById(`hp`)
 let enemy = spawnEnemy();
-let enemy2 = spawnEnemy2();
+let enemy2 = spawnEnemy();
+let enemy3 = spawnEnemy();
+let enemy4 = spawnEnemy();
 let gameIntervalEnemy
 let enemiesOnScreen = []
 let enemiesOnScreen2 = []
+let enemiesOnScreen3 = []
+let enemiesOnScreen4 = []
 
 
 
@@ -31,10 +35,16 @@ function draw() {
     updateHp()
     // updateScore();
     enemiesOnScreen.forEach((enemy) => {
-        drawEnemy(enemy)
+        drawEnemy(enemy, 'enemy')
     })
     enemiesOnScreen2.forEach((enemy) => {
-        drawEnemy2(enemy)
+        drawEnemy(enemy, 'enemy2')
+    })
+    enemiesOnScreen3.forEach((enemy) => {
+        drawEnemy(enemy, 'enemy3')
+    })
+    enemiesOnScreen4.forEach((enemy) => {
+        drawEnemy(enemy, 'enemy4')
     })
 
     // drawEnemy2()
@@ -105,8 +115,10 @@ function move() {
             draw();
         }, gameSpeedDelay);
     } else {
-        checkEnemiesCollision2()
-        checkEnemiesCollision();  
+        checkEnemiesCollision(enemiesOnScreen)
+        checkEnemiesCollision(enemiesOnScreen2)
+        checkEnemiesCollision(enemiesOnScreen3)
+        checkEnemiesCollision(enemiesOnScreen4);  
         if (!gameStarted) return; 
         snake.pop();
     }
@@ -206,6 +218,9 @@ function resetGame() {
     gameSpeedDelay = 200;
     updateHp();
     enemiesOnScreen = []
+    enemiesOnScreen2 = []
+    enemiesOnScreen3 = []
+    enemiesOnScreen4 = []
     board.innerHTML = ``;
     score = 0
     updateScore()
@@ -222,6 +237,9 @@ function stopGame() {
     instructionText.style.display = `block`
     logo.style.display = `block`
     enemiesOnScreen = []
+    enemiesOnScreen2 = []
+    enemiesOnScreen3 = []
+    enemiesOnScreen4 = []
     board.innerHTML = ``;
 }
 
@@ -234,9 +252,9 @@ function updateHighScore() {
     highScoreText.style.display = `block`;
 }
 
-function drawEnemy(enemy) {
+function drawEnemy(enemy, className) {
     if (gameStarted) {
-        const enemyElement = createGameElement(`div`, `enemy`)
+        const enemyElement = createGameElement(`div`, className)
         setPosition(enemyElement, enemy);
         board.appendChild(enemyElement);
 
@@ -244,15 +262,6 @@ function drawEnemy(enemy) {
     }
 }
 
-function drawEnemy2(enemy2) {
-    if (gameStarted) {
-        const enemyElement2 = createGameElement(`div`, `enemy2`)
-        setPosition(enemyElement2, enemy2);
-        board.appendChild(enemyElement2);
-
-
-    }
-}
 
 function spawnEnemy() {
     let x, y;
@@ -263,28 +272,34 @@ function spawnEnemy() {
     return { x, y };
 }
 
-function spawnEnemy2() {
-    let x, y;
-    do {
-        x = Math.floor(Math.random() * gridSize) + 1;
-        y = Math.floor(Math.random() * gridSize) + 1;
-    } while (snake.some(segment => segment.x === x && segment.y === y) || (x === food.x && y === food.y));
-    return { x, y };
-}
 
 setInterval(() => {
     const newEnemy = spawnEnemy()
     newEnemy.health = 2;
-    drawEnemy(newEnemy)
+    drawEnemy(newEnemy, "enemy")
     enemiesOnScreen.push(newEnemy)
 }, 10000);
 
 setInterval(() => {
-    const newEnemy = spawnEnemy2()
+    const newEnemy = spawnEnemy()
     newEnemy.health = 4;
-    drawEnemy2(newEnemy)
+    drawEnemy(newEnemy, "enemy2")
     enemiesOnScreen2.push(newEnemy)
-}, 10000);
+}, 15000);
+
+setInterval(() => {
+    const newEnemy = spawnEnemy()
+    newEnemy.health = 7;
+    drawEnemy(newEnemy, "enemy3")
+    enemiesOnScreen3.push(newEnemy)
+}, 20000);
+
+setInterval(() => {
+    const newEnemy = spawnEnemy()
+    newEnemy.health = 10;
+    drawEnemy(newEnemy, "enemy4")
+    enemiesOnScreen4.push(newEnemy)
+}, 25000);
 
 
 function updateScore(enemy) {
@@ -295,40 +310,21 @@ function updateScore(enemy) {
     scoreElement.textContent = score.toString().padStart(8, `Score: `, 0)
 }
 
-function checkEnemiesCollision() {
+function checkEnemiesCollision(enemiesArray) {
     const head = snake[0];
-    enemiesOnScreen.forEach((enemy, index) => {
+    enemiesArray.forEach((enemy, index) => {
         if (head.x === enemy.x && head.y === enemy.y) {
             enemy.hit = true; 
             for (let i = 0; i < enemy.health && snake.length > 1; i++) {
                 snake.pop();
             }
-            enemiesOnScreen.splice(index, 1); 
+            enemiesArray.splice(index, 1); 
             if (snake.length <= 1) {
                 resetGame(); 
                 return;
             }
             
             updateScore(enemy)
-        }
-    });
-}
-
-function checkEnemiesCollision2() {
-    const head = snake[0];
-    enemiesOnScreen2.forEach((enemy2, index) => {
-        if (head.x === enemy2.x && head.y === enemy2.y) {
-            enemy2.hit = true;  
-            for (let i = 0; i < enemy2.health && snake.length > 1; i++) {
-                snake.pop();
-            }
-            enemiesOnScreen2.splice(index, 1);  
-            if (snake.length <= 1) {
-                resetGame(); 
-                return;
-            }
-            
-            updateScore(enemy2)
         }
     });
 }
