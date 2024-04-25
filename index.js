@@ -285,21 +285,21 @@ setInterval(() => {
     newEnemy.health = 4;
     drawEnemy(newEnemy, "enemy2")
     enemiesOnScreen2.push(newEnemy)
-}, 10000);
+}, 15000);
 
 setInterval(() => {
     const newEnemy = spawnEnemy()
     newEnemy.health = 7;
     drawEnemy(newEnemy, "enemy3")
     enemiesOnScreen3.push(newEnemy)
-}, 10000);
+}, 20000);
 
 setInterval(() => {
     const newEnemy = spawnEnemy()
     newEnemy.health = 10;
     drawEnemy(newEnemy, "enemy4")
     enemiesOnScreen4.push(newEnemy)
-}, 10000);
+}, 25000);
 
 
 function updateScore(enemy) {
