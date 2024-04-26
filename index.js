@@ -25,11 +25,14 @@ let enemiesOnScreen = []
 let enemiesOnScreen2 = []
 let enemiesOnScreen3 = []
 let enemiesOnScreen4 = []
+const themeSong = document.getElementById('audio');
+const eatSound = document.getElementById('eating');
+const gameOverSound = document.getElementById('gameOver');
 
 
 
 function draw() {
-    board.innerHTML = ``;
+    board.innerHTML = ``; 
     drawSnake();
     drawFood();
     updateHp()
@@ -145,6 +148,8 @@ function handleKeyPress(event) {
     if (
         (!gameStarted && event.code === `Space`) || (!gameStarted && event.key === ` `)) {
         startGame()
+        let themeSong = document.querySelector("#audio")
+        themeSong.play()
     }
     else {
         switch (event.key) {
@@ -196,6 +201,8 @@ function increaseSpeed() {
 
 function checkCollision() {
     const head = snake[0];
+    // let gameOverAudio = document.querySelector("gameOver")
+    // gameOverAudio.play()
 
     if (head.x < 1 || head.x > gridSize || head.y < 1 || head.y > gridSize) {
         resetGame();
@@ -224,6 +231,17 @@ function resetGame() {
     board.innerHTML = ``;
     score = 0
     updateScore()
+
+    if(themeSong) {
+        themeSong.pause();
+        themeSong.currentTime = 0; // Rewind to the start
+    }
+    
+    // Play game over sound
+    if(gameOverSound) {
+        gameOverSound.play();
+    }
+
 }
 
 function updateHp() {
@@ -241,6 +259,7 @@ function stopGame() {
     enemiesOnScreen3 = []
     enemiesOnScreen4 = []
     board.innerHTML = ``;
+    
 }
 
 function updateHighScore() {
